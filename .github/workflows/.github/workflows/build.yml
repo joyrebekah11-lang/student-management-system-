@@ -1,0 +1,23 @@
+name: Build Windows Application
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Get project files
+        uses: actions/checkout@v4
+
+      - name: Compile C program
+        run: gcc main.c -o StudentManagement.exe -mwindows -luser32 -lgdi32
+
+      - name: Save Windows application
+        uses: actions/upload-artifact@v4
+        with:
+          name: StudentManagement
+          path: StudentManagement.exe
